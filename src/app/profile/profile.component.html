@@ -1,0 +1,9 @@
+<div *ngIf='profil'>
+  <h2 class="page-header"></h2>
+  <ul class="list-group">
+    <li class="list-group-item">id : {{profil.data.id}} </li>
+    <li class="list-group-item">firstname :  {{profil.data.first_name}} </li>
+    <li class="list-group-item">lastname : {{profil.data.last_name}} </li>
+    <li class="list-group-item"> avatar : <img src={{profil.data.avatar}} >  </li>
+  </ul>
+</div>

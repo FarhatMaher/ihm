@@ -1,0 +1,9 @@
+<div   >
+  <h2 class="page-header" ></h2>
+  <ul class="list-group" *ngFor="let user of users" >
+    <li class="list-group-item" >id : {{user.id}} </li>
+    <li class="list-group-item">firstname :  {{user.first_name}} </li>
+    <li class="list-group-item">lastname : {{user.last_name}} </li>
+    <li class="list-group-item"> avatar : <img src={{user.avatar}} >  </li>
+  </ul>
+</div>
