@@ -1,0 +1,58 @@
+<div class="mat-elevation-z8">
+    <h3>BackLog Product
+    </h3>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <button (click)="do()" mat-icon-button><i class="fa fa-plus"></i> Add a User Story </button>
+
+    <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+            <td mat-cell *matCellDef="let row">{{row.id}}</td>
+        </ng-container>
+
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="userstory">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>userstory</th>
+            <td mat-cell *matCellDef="let row">{{row.userstory}}</td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="priority">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>priority</th>
+            <td mat-cell *matCellDef="let row">{{row.priority}}</td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="complexity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>complexity</th>
+            <td mat-cell *matCellDef="let row">{{row.complexity}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="operations">
+
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Operations </mat-header-cell>
+
+            <mat-cell *matCellDef="let element">
+                <button mat-button color="primary" (click)="deleteUserStory(element.id)">
+                <mat-icon>delete</mat-icon>
+
+            </button>
+            <button mat-button color="primary" (click)="UpdateUserStory(element)">
+              <mat-icon>update</mat-icon>
+            </button>
+            </mat-cell>
+
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]">
+    </mat-paginator>
+</div>

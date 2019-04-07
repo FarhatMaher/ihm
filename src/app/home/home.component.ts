@@ -1,43 +1,47 @@
-import { UserService } from './../user.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { HowToUseComponent } from './../how-to-use/how-to-use.component';
+import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit , OnDestroy {
-id = 1000 ;
-users: Array<any> = new Array();
-fromson ;
-sub ; sub1: Subscription ;
-  constructor(private userservice: UserService, private router: Router , private route: ActivatedRoute) {
+export class HomeComponent {
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+
+  constructor(private breakpointObserver: BreakpointObserver , private router: Router ,
+    private dialog: MatDialog ,public snackBar: MatSnackBar ) {
+
+      this.openSnackBar('Welcome ' + localStorage.getItem('username'));
+    }
+
+  logout() {
+
+    this.router.navigate(['/login']);
+    localStorage.removeItem('id');
 
   }
 
-  ngOnInit() {
-
-
-
+  help() {
+    this.dialog.open(HowToUseComponent , {width: '800px' , height: '600px',
+    data: {data: 'home'}});
   }
 
 
-  getfrommychild(event) {
-
-  this.fromson = event.data;
+  openSnackBar(msg) {
+    this.snackBar.openFromComponent(ToastComponent, {
+      duration: 2000,
+      data : {message : msg}
+    });
   }
-
-ngOnDestroy() {
-
-}
-
-do() {
-
-}
-
-
 }

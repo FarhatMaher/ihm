@@ -2,7 +2,6 @@ import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 
-import {LocalStorageService} from 'ngx-webstorage';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 
 
@@ -16,7 +15,7 @@ export class AuthGuardService implements CanActivate {
 canActivate(path: ActivatedRouteSnapshot ,
   state: RouterStateSnapshot): boolean {
 
-return this.serv.gettoken();
+      return this.serv.gettoken();
 
 }
 

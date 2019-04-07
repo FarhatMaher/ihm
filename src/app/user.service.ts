@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
@@ -6,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
+  url = 'http://localhost:3000/' ;
   notify = new Subject<any>();
   notifyObservable$ = this.notify.asObservable();
   constructor(private http: HttpClient) { }
@@ -19,6 +21,29 @@ export class UserService {
   getuser() {
 
 console.log('hello');
+
+  }
+
+
+  Auth(user) {
+    const headers = new HttpHeaders(
+      {
+      'Content-Type': 'application/json',
+    } );
+
+    return this.http.get(this.url + `users?username=${user.username}&password=${user.password}`)
+           .pipe(map(users => users[0]))
+
+  }
+
+  Adduser(user): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+      'Content-Type': 'application/json',
+    } );
+
+    return this.http.post<any>(this.url + `users` , user, {headers: headers});
+
 
   }
 
@@ -78,7 +103,7 @@ return this.http.post('https://reqres.in/api/login' ,
   }
 
   gettoken() {
-   const t = localStorage.getItem('token');
+   const t = localStorage.getItem('id');
    return (t != null);
   }
   addtoobs() {
